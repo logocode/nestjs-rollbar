@@ -1,0 +1,1 @@
+# NestJS Rollbar Module
