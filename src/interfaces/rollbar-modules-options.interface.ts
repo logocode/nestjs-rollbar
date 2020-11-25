@@ -23,5 +23,5 @@ export interface RollbarModuleOptions {
   exceptionFilter?: ExceptionFilter;
 
   /** Prevents logging 4xx errors to Rollbar.  Only 5xx and uncaught exceptions are logged. */
-  onlyFatalExceptions?: number;
+  onlyFatalExceptions?: boolean;
 }
