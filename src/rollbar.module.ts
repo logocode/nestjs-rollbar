@@ -4,7 +4,7 @@ import { RollbarProvider, RollbarInterceptorProvider } from './constants';
 import { Configuration as RollbarClientConfiguration } from 'rollbar';
 import * as Rollbar from 'rollbar';
 
-import { RollbarModuleOptions } from 'interfaces/rollbar-modules-options.interface';
+import { RollbarModuleOptions } from './interfaces/rollbar-modules-options.interface';
 
 @Module({})
 export class RollbarModule {

@@ -1,11 +1,15 @@
 {
   "name": "@logocode/nestjs-rollbar",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf dist && tsc",
+    "test": "jest"
   },
+  "files": [
+    "dist/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/logocode/nestjs-rollbar.git"
@@ -39,6 +43,8 @@
     "rxjs": "^6.6.3"
   },
   "devDependencies": {
+    "@nestjs/common": "^7.5.5",
+    "@nestjs/core": "^7.0.0",
     "@nestjs/testing": "^7.5.5",
     "@types/express": "^4.17.3",
     "@types/jest": "25.2.3",
@@ -51,13 +57,14 @@
     "eslint-plugin-import": "^2.20.1",
     "jest": "26.0.1",
     "prettier": "^1.19.1",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^6.6.3",
     "supertest": "^4.0.2",
     "ts-jest": "26.1.0",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.6.2",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.7.4",
-    "@nestjs/core": "^7.0.0",
-    "reflect-metadata": "^0.1.13"
+    "typescript": "^3.7.4"
   }
 }
