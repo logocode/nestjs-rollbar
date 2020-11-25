@@ -1,6 +1,14 @@
+import { Configuration as RollbarClientConfiguration } from 'rollbar';
 import { ExceptionFilter } from './error-filter.interface';
+import * as Rollbar from 'rollbar';
+
 export interface RollbarModuleOptions {
-  /** Marks the module as globally scoped in Nestjs's context. */
+  rollbarOrConfig: RollbarClientConfiguration | Rollbar;
+
+  /**
+   * Marks the module as globally scoped in Nestjs's context, allowing
+   * the providers to be available without being imported in other modules.
+   */
   global?: boolean;
 
   /**
@@ -8,8 +16,9 @@ export interface RollbarModuleOptions {
    * Rollbar.  If the function returns true, the error will be logged to Rollbar.  If
    * the function returns false, the error will not be logged.
    *
-   * Note: If the filter function itself throws an error, then the original error will be
-   * logged to Rollbar.
+   * Note: If the filter function itself throws an error, then the new Error will be used.
+   * This is helpful in cases where you want to override the error sent to rollbar.  However,
+   * the original Error is still thrown by the interceptor.
    */
   exceptionFilter?: ExceptionFilter;
 

@@ -16,14 +16,10 @@ export class RollbarModule {
    * available using the Rollbar instance.  The options object can be used to configure the
    * handling of that.
    *
-   * @param rollbarOrConfig An instance of Rollbar, or the Rollbar configuration object
-   * @param options Module options for configuring the interceptor and global settings
+   * @param options Configuration for Rollbar and the modules providers.
    */
-  static forRoot(
-    rollbarOrConfig: RollbarClientConfiguration | Rollbar,
-    options: RollbarModuleOptions = {},
-  ): DynamicModule {
-    const rollbar = this.getRollbarInstance(rollbarOrConfig);
+  static forRoot(options: RollbarModuleOptions): DynamicModule {
+    const rollbar = this.getRollbarInstance(options.rollbarOrConfig);
 
     const rollbar_provider = {
       provide: RollbarProvider,
@@ -39,12 +35,13 @@ export class RollbarModule {
       module: RollbarModule,
       providers: [rollbar_provider, rollbar_interceptor_provider],
       exports: [rollbar_provider, rollbar_interceptor_provider],
-      global: !!options.global,
+      global: typeof options.global === 'undefined' ? true : options.global,
     };
   }
 
   /**
-   * Helper function for parsing the instance from the given config.
+   * Returns a given Rollbar instance, or a new Rollbar instance,
+   * depending on what is passed.
    */
   private static getRollbarInstance(
     rollbarOrConfig: RollbarClientConfiguration | Rollbar,

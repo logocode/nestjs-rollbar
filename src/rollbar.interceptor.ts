@@ -40,7 +40,8 @@ export class RollbarInterceptor implements NestInterceptor {
     let should_log = true;
     try {
       if (typeof this.options.errorFilter === 'function') {
-        should_log = this.options.errorFilter && this.options.errorFilter(e);
+        should_log =
+          this.options.errorFilter && this.options.errorFilter(e, context);
       } else if (this.options.onlyFatalExceptions) {
         should_log = status >= 500;
       }

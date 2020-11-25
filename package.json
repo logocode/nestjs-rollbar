@@ -1,10 +1,10 @@
 {
   "name": "@logocode/nestjs-rollbar",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
     "test": "jest"
   },
   "files": [
@@ -14,7 +14,13 @@
     "type": "git",
     "url": "git+https://github.com/logocode/nestjs-rollbar.git"
   },
-  "keywords": [],
+  "keywords": [
+    "rollbar",
+    "nest",
+    "nestjs",
+    "module",
+    "interceptor"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {

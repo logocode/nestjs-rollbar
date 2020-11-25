@@ -1,7 +1,7 @@
-import { ErrorFilterFunction } from './error-filter.interface';
+import { ExceptionFilter } from './error-filter.interface';
 
 export interface RollbarInterceptorOptions {
-  errorFilter?: ErrorFilterFunction;
+  errorFilter?: ExceptionFilter;
 
   onlyFatalExceptions?: number;
 }
