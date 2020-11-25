@@ -1,4 +1,4 @@
-import { ErrorFilterFunction } from './error-filter.interface';
+import { ExceptionFilter } from './error-filter.interface';
 export interface RollbarModuleOptions {
   /** Marks the module as globally scoped in Nestjs's context. */
   global?: boolean;
@@ -11,7 +11,8 @@ export interface RollbarModuleOptions {
    * Note: If the filter function itself throws an error, then the original error will be
    * logged to Rollbar.
    */
-  errorFilter?: ErrorFilterFunction;
+  exceptionFilter?: ExceptionFilter;
 
-  minStatusCode?: number;
+  /** Prevents logging 4xx errors to Rollbar.  Only 5xx and uncaught exceptions are logged. */
+  onlyFatalExceptions?: number;
 }

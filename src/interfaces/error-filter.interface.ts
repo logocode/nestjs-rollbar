@@ -8,4 +8,4 @@ import { HttpException } from '@nestjs/common';
  * Note: If the filter function itself throws an error, then the original error will be
  * logged to Rollbar.
  */
-export type ErrorFilterFunction = (e: HttpException | unknown) => boolean;
+export type ExceptionFilter = (e: HttpException | unknown) => boolean;
