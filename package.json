@@ -1,8 +1,8 @@
 {
   "name": "@logocode/nestjs-rollbar",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": ".eslintrc.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,9 +18,7 @@
   },
   "homepage": "https://github.com/logocode/nestjs-rollbar#readme",
   "dependencies": {
-    "@nestjs/common": "^7.5.5",
-    "rollbar": "^2.19.4",
-    "rxjs": "^6.6.3"
+    "rollbar": "^2.19.4"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -35,6 +33,10 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^7.5.5",
+    "rxjs": "^6.6.3"
   },
   "devDependencies": {
     "@nestjs/testing": "^7.5.5",
