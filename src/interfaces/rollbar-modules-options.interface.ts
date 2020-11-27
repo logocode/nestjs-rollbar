@@ -3,7 +3,7 @@ import { ExceptionFilter } from './error-filter.interface';
 import * as Rollbar from 'rollbar';
 
 export interface RollbarModuleOptions {
-  rollbarOrConfig: RollbarClientConfiguration | Rollbar;
+  config: RollbarClientConfiguration | Rollbar;
 
   /**
    * Marks the module as globally scoped in Nestjs's context, allowing

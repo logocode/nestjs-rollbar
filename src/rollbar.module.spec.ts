@@ -12,7 +12,7 @@ describe('RollbarModule', () => {
   describe('When the configuration is a Rollbar configuration object', () => {
     it('should create a new Rollbar instance', async () => {
       const module: TestingModule = await Test.createTestingModule({
-        imports: [RollbarModule.forRoot({ rollbarOrConfig: rollbarConfig })],
+        imports: [RollbarModule.forRoot({ config: rollbarConfig })],
       }).compile();
 
       const rollbar = module.get<Rollbar>(RollbarProvider);
@@ -28,7 +28,7 @@ describe('RollbarModule', () => {
       const rollbar = new Rollbar(rollbarConfig);
 
       const module: TestingModule = await Test.createTestingModule({
-        imports: [RollbarModule.forRoot({ rollbarOrConfig: rollbar })],
+        imports: [RollbarModule.forRoot({ config: rollbar })],
       }).compile();
 
       const instance = module.get<Rollbar>(RollbarProvider);
@@ -41,7 +41,7 @@ describe('RollbarModule', () => {
     describe('When global is set to true', () => {
       it('should mark the module as global', async () => {
         const module = RollbarModule.forRoot({
-          rollbarOrConfig: rollbarConfig,
+          config: rollbarConfig,
           global: true,
         });
 
@@ -52,7 +52,7 @@ describe('RollbarModule', () => {
     describe('Otherwise', () => {
       it('should not mark the module as global', async () => {
         const module = RollbarModule.forRoot({
-          rollbarOrConfig: rollbarConfig,
+          config: rollbarConfig,
           global: true,
         });
 

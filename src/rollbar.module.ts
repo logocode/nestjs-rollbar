@@ -19,7 +19,7 @@ export class RollbarModule {
    * @param options Configuration for Rollbar and the modules providers.
    */
   static forRoot(options: RollbarModuleOptions): DynamicModule {
-    const rollbar = this.getRollbarInstance(options.rollbarOrConfig);
+    const rollbar = this.getRollbarInstance(options.config);
 
     const rollbar_provider = {
       provide: RollbarProvider,
