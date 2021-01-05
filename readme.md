@@ -55,10 +55,7 @@ export class CatsService {
 
 ### Using the Rollbar Module Interceptor
 
-If you'd like to log exceptions globally, you can install the interceptor
-that is provided by this package.
-
-In your `main.ts`:
+The module can install a global interceptor for you, logging all exceptions to Rollbar automatically.
 
 ```JavaScript
 
@@ -75,9 +72,6 @@ const config = { accessToken: 'your_server_token_here' }
 export class AppModule {}
 
 ```
-
-From now on, every exception thrown by your application will also log to Rollbar. This does
-not handle the error for you, it only logs it.
 
 ### Advanced Usage
 
@@ -113,7 +107,7 @@ const exceptionFilter = (e: HttpException | unknown, context: ExecutionContext):
         ? e.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    // how an unauth request as a 404
+    // show an unauth request as a 404
     if (status === 403) {
         throw new NotFoundException(`The route you're looking for doesnt exist???`)
     }
