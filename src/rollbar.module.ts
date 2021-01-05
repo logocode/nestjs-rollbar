@@ -5,6 +5,7 @@ import { Configuration as RollbarClientConfiguration } from 'rollbar';
 import * as Rollbar from 'rollbar';
 
 import { RollbarModuleOptions } from './interfaces/rollbar-modules-options.interface';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({})
 export class RollbarModule {
@@ -26,15 +27,28 @@ export class RollbarModule {
       useValue: rollbar,
     };
 
+    const interceptor = new RollbarInterceptor(rollbar, options);
+
     const rollbar_interceptor_provider = {
       provide: RollbarInterceptorProvider,
-      useValue: new RollbarInterceptor(rollbar, options),
+      useValue: interceptor,
     };
+
+    const providers = [rollbar_provider, rollbar_interceptor_provider];
+
+    if (options.useGlobalInterceptor) {
+      providers.push({
+        provide: APP_INTERCEPTOR,
+        useValue: interceptor,
+      });
+    }
+
+    const exports = [rollbar_provider, rollbar_interceptor_provider];
 
     return {
       module: RollbarModule,
-      providers: [rollbar_provider, rollbar_interceptor_provider],
-      exports: [rollbar_provider, rollbar_interceptor_provider],
+      providers: providers,
+      exports: exports,
       global: typeof options.global === 'undefined' ? true : options.global,
     };
   }

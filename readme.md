@@ -11,18 +11,18 @@ npm install @logocode/nestjs-rollbar
 
 ### Basic Usage
 
-All that's needed is to pass your Rollbar configuration into the Rollbar Module.
+At minimum, you'll need to pass an object containing the `config` for Rollbar, which should at least have `accessToken` set.
 
 ```JavaScript
 
 import { RollbarModule } from '@logocode/nestjs-rollbar'
 
 // This is the configuration you'd normally pass to Rollbar
-const rollbarOrConfig = { accessToken: 'your_server_token_here' }
+const config = { accessToken: 'your_server_token_here' }
 
 @Module({
   imports: [
-    RollbarModule.forRoot( { rollbarOrConfig } ),
+    RollbarModule.forRoot( { config } ),
   ],
 })
 export class AppModule {}
@@ -61,20 +61,28 @@ that is provided by this package.
 In your `main.ts`:
 
 ```JavaScript
-import { RollbarInterceptorProvider } from '@logocode/nestjs-rollbar';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+import { RollbarModule } from '@logocode/nestjs-rollbar'
 
-  const interceptor = app.get(RollbarInterceptorProvider);
-  app.useGlobalInterceptors(interceptor);
-}
+// This is the configuration you'd normally pass to Rollbar
+const config = { accessToken: 'your_server_token_here' }
+
+@Module({
+  imports: [
+    RollbarModule.forRoot( { config, useGlobalInterceptor: true } ),
+  ],
+})
+export class AppModule {}
+
 ```
 
 From now on, every exception thrown by your application will also log to Rollbar. This does
 not handle the error for you, it only logs it.
 
 ### Advanced Usage
+
+This module is also able to provide some conveniences specific to NestJS. That is, filtering errors in the global filter,
+reducing the amount of noise. For example, you may want to only log internal (5xx) errors to Rollbar, and ignore anything else.
 
 ##### Only logging fatal exceptions in the interceptor
 
@@ -84,7 +92,7 @@ or uncaught JS exceptions will still be logged.
 ```JavaScript
 @Module({
   imports: [
-    RollbarModule.forRoot( { rollbarOrConfig, onlyFatalExceptions: true } ),
+    RollbarModule.forRoot( { config, onlyFatalExceptions: true, useGlobalInterceptor: true } ),
   ],
 })
 export class AppModule {}
@@ -113,7 +121,7 @@ const exceptionFilter = (e: HttpException | unknown, context: ExecutionContext):
 
 @Module({
   imports: [
-    RollbarModule.forRoot( { rollbarOrConfig, exceptionFilter } ),
+    RollbarModule.forRoot( { config, exceptionFilter, useGlobalInterceptor: true } ),
   ],
 })
 export class AppModule {}

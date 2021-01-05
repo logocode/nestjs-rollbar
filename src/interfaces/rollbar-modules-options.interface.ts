@@ -12,6 +12,11 @@ export interface RollbarModuleOptions {
   global?: boolean;
 
   /**
+   * Installs a global interceptor to the application
+   */
+  useGlobalInterceptor?: boolean;
+
+  /**
    * Allows filtering of application exceptions, preventing them from being logged to
    * Rollbar.  If the function returns true, the error will be logged to Rollbar.  If
    * the function returns false, the error will not be logged.
@@ -19,9 +24,15 @@ export interface RollbarModuleOptions {
    * Note: If the filter function itself throws an error, then the new Error will be used.
    * This is helpful in cases where you want to override the error sent to rollbar.  However,
    * the original Error is still thrown by the interceptor.
+   *
+   * Only used if `useGlobalInterceptor` is true
    */
   exceptionFilter?: ExceptionFilter;
 
-  /** Prevents logging 4xx errors to Rollbar.  Only 5xx and uncaught exceptions are logged. */
+  /**
+   * Prevents logging 4xx errors to Rollbar.  Only 5xx and uncaught exceptions are logged.
+   *
+   * Only used if `useGlobalInterceptor` is true
+   */
   onlyFatalExceptions?: boolean;
 }
